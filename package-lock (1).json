@@ -14,6 +14,7 @@
         "@popperjs/core": "^2.11.7",
         "bootstrap": "^5.3.0-alpha2",
         "bootstrap-icons": "^1.10.3",
+        "node-cmd": "^5.0.0",
         "sass": "^1.60.0"
       },
       "devDependencies": {
@@ -1260,9 +1261,9 @@
       "dev": true
     },
     "node_modules/@types/node": {
-      "version": "16.18.19",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-16.18.19.tgz",
-      "integrity": "sha512-Qd2EhjbjOKZuHMn+IJc2EUYwdkJw9kgsZ3k2zdyi2uIBH0hU00Yd9T5rpMq6KRiFvpscpXUQRjJSaJHH29ei8A=="
+      "version": "16.18.20",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-16.18.20.tgz",
+      "integrity": "sha512-9fH66vSJnF563exTu3y1g2IbDz1vCj01Lbqms97r8j0qzfFisT2biypSfybVv/eYrtTB74x9xQTdRU8RyMiRrg=="
     },
     "node_modules/@types/plist": {
       "version": "3.0.2",
@@ -4296,6 +4297,14 @@
       "integrity": "sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==",
       "dev": true,
       "optional": true
+    },
+    "node_modules/node-cmd": {
+      "version": "5.0.0",
+      "resolved": "https://registry.npmjs.org/node-cmd/-/node-cmd-5.0.0.tgz",
+      "integrity": "sha512-4sQTJmsS5uZKAPz/Df9fnIbmvOySfGdW+UreH4X5NcAOOpKjaE+K5wf4ehNBbZVPo0vQ36RkRnhhsXXJAT+Syw==",
+      "engines": {
+        "node": ">=6.4.0"
+      }
     },
     "node_modules/node-releases": {
       "version": "2.0.10",
