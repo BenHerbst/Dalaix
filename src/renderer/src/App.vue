@@ -8,11 +8,24 @@
     </p>
     <h3>Model</h3>
     <p class="form-label">Select model:</p>
-    <select v-model="selected" class="mb-3 form-select form-control">
-      <option selected>7B Model</option>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" id="flexRadioLlama" value="llama" v-model="modelType">
+      <label class="form-check-label" for="flexRadioLlama">
+        LLaMA
+      </label>
+    </div>
+    <div class="form-check mb-2">
+      <input class="form-check-input" type="radio" id="flexRadioAlpaca" value="alpaca" checked v-model="modelType">
+      <label class="form-check-label" for="flexRadioAlpaca">
+        Alpaca
+      </label>
+    </div>
+    <select v-model="selectedModel" class="mb-3 form-select form-control">
+      <option value="7B" selected>7B Model</option>
       <option>13B Model</option>
-      <option>30B Model</option>
-      <option>65B Model</option>
+      <!-- llama exclusive -->
+      <option value="30B" v-if="modelType == 'llama'">30B Model</option>
+      <option value="65B" v-if="modelType == 'llama'">65B Model</option>
     </select>
     <h3>Run</h3>
     <div class="form-check">
@@ -38,18 +51,17 @@
 export default {
   data() {
     return {
-      selected: "7B Model",
+      selectedModel: "7B Model",
       autostart: false,
       runEntry: true,
       stopEntry: true,
-      installDocker: true,
-      installNpm: true
+      modelType: "alpaca"
     }
   },
   methods: {
     async install() {
       console.log("Installing Dalai ...")
-      window.api.install(this.autostart, this.runEntry, this.stopEntry, this.installNpm, this.installDocker, this.selected)
+      window.api.install(this.autostart, this.runEntry, this.stopEntry, this.selectedModel, this.modelType)
     }
   }
 }
