@@ -5,6 +5,10 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   install: function (autostart, runEntry, stopEntry, selectedModel, modelType) {
     ipcRenderer.invoke('install', autostart, runEntry, stopEntry, selectedModel, modelType)
+  },
+  closeApp: () => {
+    // quit the app
+    ipcRenderer.invoke('quit')
   }
 }
 

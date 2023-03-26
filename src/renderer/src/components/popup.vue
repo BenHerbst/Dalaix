@@ -1,5 +1,13 @@
 <template>
-  <div class="modal fade" id="popup" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="popup"
+    tabindex="-1"
+    aria-labelledby="Label"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -20,6 +28,7 @@
               style="width: 75%"
             ></div>
           </div>
+          <p class="p-0 m-0 pt-2">Installing BLAH BLAH BLAH</p>
         </div>
       </div>
     </div>

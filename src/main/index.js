@@ -14,11 +14,13 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      nodeIntegrationInWorker: true,
     }
   })
 
   ipcMain.handle('install', install)
+  ipcMain.handle('quit', () => { app.quit() })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

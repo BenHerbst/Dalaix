@@ -61,11 +61,15 @@
           id="sendButton"
           @click="install"
           data-bs-toggle="modal"
-          data-bs-target="popup"
+          data-bs-target="#popup"
         >
           Install Dalai
         </button>
-        <button class="ms-md-2 btn btn-outline-secondary px-3 endButton" id="cancelButton">
+        <button
+          class="ms-md-2 btn btn-outline-secondary px-3 endButton"
+          id="cancelButton"
+          @click="close"
+        >
           Cancel
         </button>
       </div>
@@ -81,7 +85,7 @@ export default {
       autostart: false,
       runEntry: true,
       stopEntry: true,
-      modelType: 'alpaca'
+      modelType: 'alpaca',
     }
   },
   methods: {
@@ -94,6 +98,9 @@ export default {
         this.selectedModel,
         this.modelType
       )
+    },
+    close() {
+      window.api.closeApp()
     }
   }
 }
