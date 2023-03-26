@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import install from './install'
 
 function createWindow() {
   // Create the browser window.
@@ -17,55 +18,7 @@ function createWindow() {
     }
   })
 
-  ipcMain.handle('install', async (event, autostart, runEntry, stopEntry, selectedModel, modelType) => {
-    // const psLocation = '@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"'
-    var cmd = require('node-cmd')
-
-    // install coco to install docker and npm
-    console.log("Installing Choco")
-    logOutput(cmd.runSync('powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\'))'))
-
-    // choco installed, now get docker and npm
-    const chocoPath = 'C:\\ProgramData\\chocolatey\\bin\\choco.exe'
-
-    if (installNpm) {
-      console.log("Installing Npm")
-      logOutput(cmd.runSync(chocoPath + ' install nodejs -y'))
-    }
-
-    console.log("Installing Python")
-    logOutput(cmd.runSync(chocoPath + ' install python --version=3.8.0 -y'))
-
-    console.log("Installing Git")
-    logOutput(cmd.runSync(chocoPath + ' install git -y'))
-
-    console.log("Installing MS Visual C++ Runtime")
-    logOutput(cmd.runSync(chocoPath + ' install vcredist-all -y'))
-
-    console.log("Installing Cmake")
-    logOutput(cmd.runSync(chocoPath + ' install make -y'))
-
-    console.log("Installing VS")
-    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019community visualstudio2019buildtools visualstudio2019-workload-vctools -y'))
-
-    // get Dalai
-    console.log("Downloading Dalai")
-    logOutput(cmd.runSync("mkdir C:\\Dalai"))
-    logOutput(cmd.runSync('powershell.exe -command "cd C:\\Dalai ; git clone https://github.com/cocktailpeanut/dalai'))
-
-    logOutput(cmd.runSync('cd C:\\Dalai\\dalai && npm install'))
-
-    console.log("Now installing alpaca ( fat, takes long time )")
-    logOutput(cmd.runSync('cd C:\\Dalai\\dalai && npx dalai ' + modelType + ' install ' + selectedModel))
-
-    // serve Dalai
-    cmd.run('cd C:\\Dalai\\dalai && npx dalai serve')
-
-    // open browser
-    cmd.run('rundll32 url.dll,FileProtocolHandler http://localhost:3000/')
-
-    console.log("Finished")
-  })
+  ipcMain.handle('install', install)
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -83,18 +36,6 @@ function createWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-}
-
-function logOutput(syncCmd) {
-  console.log(`
-    
-        Sync Err ${syncCmd.err}
-        
-        Sync stderr:  ${syncCmd.stderr}
-
-        Sync Data ${syncCmd.data}
-    
-    `);
 }
 
 // This method will be called when Electron has finished
@@ -131,11 +72,3 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
-
-const exec = require('child_process').exec;
-
-function execute(command, callback) {
-  exec(command, (error, stdout, stderr) => {
-    callback(stdout);
-  });
-};
