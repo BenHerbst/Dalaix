@@ -19,7 +19,7 @@
             class="progress"
             role="progressbar"
             aria-label="Animated striped example"
-            aria-valuenow="75"
+            aria-valuenow="50"
             aria-valuemin="0"
             aria-valuemax="100"
           >
@@ -28,9 +28,31 @@
               style="width: 75%"
             ></div>
           </div>
-          <p class="p-0 m-0 pt-2">Installing BLAH BLAH BLAH</p>
+          <div class="d-flex justify-content-center">
+            <p class="p-0 m-0 pt-2">{{ installText }}</p>
+          </div>
+          <div class="d-flex justify-content-center mt-3 mb-2" v-if="installed">
+            <button type="button" class="btn btn-primary px-5">Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            installed: false,
+            installText: "Installing Dalai..."
+        }
+    },
+    methods: {
+        finishInstall() {
+            this.installed = true;
+            this.installText = "Successfully installed Dalai";
+        },
+    }
+}
+</script>
