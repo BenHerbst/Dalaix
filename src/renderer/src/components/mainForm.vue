@@ -60,6 +60,8 @@
           class="btn btn-primary px-5 endButton mb-md-0 mb-2"
           id="sendButton"
           @click="install"
+          data-bs-toggle="modal"
+          data-bs-target="popup"
         >
           Install Dalai
         </button>

@@ -1,10 +1,10 @@
 {
   "name": "dalaix",
   "version": "1.0.0",
-  "description": "An Electron application with Vue",
+  "description": "A simple to use Dalai installer",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://www.electronjs.org",
+  "author": "benherbst.de",
+  "homepage": "https://www.benherbst.de/",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

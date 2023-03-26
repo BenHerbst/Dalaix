@@ -15,7 +15,7 @@ module.exports = async (context) => {
     return
   }
 
-  const appId = 'com.electron.app'
+  const appId = 'de.benherbst.dalaix'
 
   const { appOutDir } = context
 

@@ -25,5 +25,7 @@ export default function installDeps(cmd) {
     logOutput(cmd.runSync(chocoPath + ' install make -y'))
 
     console.log("Installing VS")
-    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019community visualstudio2019buildtools visualstudio2019-workload-vctools -y'))
+    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019community -y'))
+    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019buildtools -y'))
+    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019-workload-vctools -y'))
 }

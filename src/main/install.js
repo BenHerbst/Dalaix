@@ -1,7 +1,7 @@
 import installDeps from './installDependencies'
 import setupEntries from './setupEntries'
 
-export default function install(autostart, runEntry, stopEntry, selectedModel, modelType) {
+export default function install(event, autostart, runEntry, stopEntry, selectedModel, modelType) {
   var cmd = require('node-cmd')
 
   installDeps(cmd)
@@ -22,7 +22,7 @@ export default function install(autostart, runEntry, stopEntry, selectedModel, m
   console.log("Now installing alpaca ( fat, takes long time )")
   logOutput(cmd.runSync(setPath + 'cd ' + dalaiFolder + ' && npx dalai ' + modelType + ' install ' + selectedModel))
 
-  setupEntries(dalaiFolder, autostart, runEntry, stopEntry)
+  setupEntries(cmd, dalaiFolder, autostart, runEntry, stopEntry)
 
   // serve Dalai
   cmd.run(setPath + 'cd ' + dalaiFolder + ' && npx dalai serve')
