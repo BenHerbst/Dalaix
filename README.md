@@ -13,7 +13,7 @@
 
 ## Get Started 🎉
 ### 1. Download Dalaix
-You can download Dalaix at: 
+You can download Dalaix at: https://github.com/BenHerbst/Dalaix/releases/tag/v1.0.0
 
 Just get the .exe
 
