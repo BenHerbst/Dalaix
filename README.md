@@ -1,3 +1,8 @@
+!["windows"](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+!["dalai"](https://img.shields.io/badge/for-dalai-red?style=flat-square&logo=appveyor)
+!["build_by"](http://ForTheBadge.com/images/badges/built-by-developers.svg)
+!["with_love"](	http://ForTheBadge.com/images/badges/built-with-love.svg)
+!["electron"](https://img.shields.io/badge/build%20with-electron-blue?style=for-the-badge&logo=appveyor)
 # Dalaix - "ChatGPT" locally for everyone
 <br>
 <p align="center">
