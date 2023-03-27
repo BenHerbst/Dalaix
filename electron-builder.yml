@@ -13,6 +13,7 @@ asarUnpack:
 afterSign: build/notarize.js
 win:
   executableName: Dalaix
+  requestedExecutionLevel: highestAvailable
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

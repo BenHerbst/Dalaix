@@ -82,7 +82,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the start batch !');
         }
-        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\start.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" -Name "Start Dalai"')
+        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai" C:\\Dalai\\start.bat')
     }
 
     if (autostart) {
@@ -92,7 +92,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the autostart batch !');
         }
-        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\autostart.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\" -Name "Autostart Dalai"')
+        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\AutostartDalai" C:\\Dalai\\autostart.bat')
     }
 
     if (stopEntry) {
@@ -105,18 +105,22 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the stop batch !');
         }
-        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\stop.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" -Name "Stop Dalai"')
+        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai" C:\\Dalai\\stop.bat')
     }
 }
 
 function runSync(command) {
     return new Promise((resolve, reject) => {
-        exec(command, { maxBuffer: 1024 * 1024 * 1024 }, (error, stdout, stderr) => {
+        var execution = exec(command, { maxBuffer: 1024 * 1024 * 1024 }, (error, stdout, stderr) => {
             if (error) {
                 reject(error);
                 return;
             }
             resolve(stdout)
+        })
+        // live cmd output
+        execution.stdout.on('data', (data) => {
+            console.log(data)
         })
     })
 }
