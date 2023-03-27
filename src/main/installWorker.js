@@ -82,7 +82,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the start batch !');
         }
-        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai" C:\\Dalai\\start.bat')
+        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  C:\\Dalai\\start.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai.lnk"')
     }
 
     if (autostart) {
@@ -106,16 +106,13 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
             alert('Failed to save the stop batch !');
         }
         await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai" C:\\Dalai\\stop.bat')
+        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  C:\\Dalai\\stop.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai.lnk"')
     }
 }
 
 function runSync(command) {
     return new Promise((resolve, reject) => {
         var execution = exec(command, { maxBuffer: 1024 * 1024 * 1024 }, (error, stdout, stderr) => {
-            if (error) {
-                reject(error);
-                return;
-            }
             resolve(stdout)
         })
         // live cmd output
