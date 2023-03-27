@@ -20,11 +20,15 @@ Just get the .exe
 ### 2. Install Dalaix
 Double click on the .exe and Dalaix installs fully automaticly! ✨
 
+<img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/install.png" width=450>
+
 ### 3. Start Dalaix
 Dalaix should start automaticly after it is installed, else search for it in the Windows start menu
 
 ### 4. Fill out the form and install
 Now you have to fill out the form.
+
+<img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/form.png" width=450>
 
 Just select the Model you want to install ( Alpaca or Llama, I recommend Alpaca 7B )
 
@@ -33,12 +37,16 @@ and press the big Blue Install button!
 ### 5. Wait a long time for it to finish
 Install can take up to some hours, or just 30 minutes. But it is going to take a long time.
 
+<img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/installing.png" width=450>
+
 So take a shower or get your coffee until Dalai is installed!
 
 IMPORTANT: If your install crashs or hangs up for any reason, follow the steps in #Troubleshoot!
 
 ### 6. Successfully installed
 When you get the popup: "Successfully installed", click close.
+
+<img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/installed.png" width=450>
 
 Now search in your start menu for "Start Dalai" and execute it.
 
@@ -47,6 +55,8 @@ If you can't find "Start Dalai" in the start menu, reboot your Windows machine.
 To Stop Dalai, search for "Stop Dalai" and execute that!
 
 Wait some time and open localhost:3000 in your browser.
+
+<img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/installed2.png" width=450>
 
 You should now see Dalai up and running
 
