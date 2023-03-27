@@ -1,4 +1,10 @@
 # Dalaix - "ChatGPT" locally for everyone
+<br>
+<p align="center">
+  <img src="https://github.com/BenHerbst/Dalaix/blob/main/resources/icon.png" width=200>
+  </br>
+  <a href="https://www.benherbst.de/">Dalaix by Ben Herbst</a>
+</p>
 
 ## Get Started 🎉
 ### 1. Download Dalaix
