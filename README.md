@@ -1,34 +1,38 @@
-# dalaix
+# Dalaix - "ChatGPT" locally for everyone
 
-An Electron application with Vue
+## Get Started
 
-## Recommended IDE Setup
+## Troubleshoot
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+## How it works
+This Software installs Chocolately ( https://chocolatey.org/ ) on your Windows machine.
 
-## Project Setup
+Then it executes commands to install all the necessary dependencies for Dalai ( https://github.com/cocktailpeanut/dalai )
 
-### Install
+After that is finished, it clones Dalai itself and install it.
 
-```bash
-$ npm install
-```
+Then it installs your selected model using commands and creates Start, Stop and Autostart entries.
 
-### Development
+Thats all the magic behind it!
 
-```bash
-$ npm run dev
-```
+Happy Hacking, Ben Herbst
 
-### Build
+## License
+Dalaix is licensed under the Apache 2.0 License by Ben Herbst
 
-```bash
-# For windows
-$ npm run build:win
+## Contributing
+Feel free to contribute!
 
-# For macOS
-$ npm run build:mac
+I ❤ everyone who contributes, wether its:
+- Filing an Issue on GitHub
+- Sharing the project
+- Starring the project
+- Developing on the project
+- Giving me feedback on it
 
-# For Linux
-$ npm run build:linux
-```
+Thanks to all contributors!
+
+## Future
+- Add dark mode
+- Add Linux support
+- Add OSX support
