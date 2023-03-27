@@ -46,6 +46,9 @@ If you can't find "Start Dalai" in the start menu, reboot your Windows machine.
 
 To Stop Dalai, search for "Stop Dalai" and execute that!
 
+Wait some time and open localhost:3000 in your browser.
+
+You should now see Dalai up and running
 
 ## Troubleshoot 🐞
 File any issue on GitHub issues: https://github.com/BenHerbst/Dalaix/issues
