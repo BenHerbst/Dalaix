@@ -9,6 +9,12 @@ const api = {
   closeApp: () => {
     // quit the app
     ipcRenderer.invoke('quit')
+  },
+  getInstallProgress: () => {
+    return ipcRenderer.invoke('getInstallProgress')
+  },
+  onProgress: (func) => {
+    ipcRenderer.on('progressed', func)
   }
 }
 

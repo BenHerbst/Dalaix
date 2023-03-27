@@ -1,56 +1,79 @@
-const { parentPort } = require('worker_threads')
+const { parentPort, workerData } = require('worker_threads')
 
-var cmd = require('node-cmd')
+const { exec, execSync } = require('child_process')
 
-installDeps(cmd)
+// get vars
+const data = workerData
 
-const dalaiFolder = 'C:\\Dalai\\dalai'
-const setPath = 'set PATH=%PATH%;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd\\;C:\\Python38;C:\\Python38\\Scripts\\ && '
+const autostart = data.autostart
+const runEntry = data.runEntry
+const stopEntry = data.stopEntry
+const selectedModel = data.selectedModel
+const modelType = data.modelType
 
-console.log("Downloading Dalai")
-logOutput(cmd.runSync("mkdir C:\\Dalai"))
-logOutput(cmd.runSync(setPath + 'powershell.exe -command "cd C:\\Dalai ; git clone https://github.com/cocktailpeanut/dalai'))
+run()
 
-logOutput(cmd.runSync(setPath + 'cd ' + dalaiFolder + ' && npm install'))
+async function run() {
+    await installDeps()
 
-console.log("Now installing alpaca ( fat, takes long time )")
-logOutput(cmd.runSync(setPath + 'cd ' + dalaiFolder + ' && npx dalai ' + modelType + ' install ' + selectedModel))
+    const dalaiFolder = 'C:\\Dalai\\dalai'
+    const setPath = 'set PATH=%PATH%;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd\\;C:\\Python38;C:\\Python38\\Scripts\\ && '
 
-setupEntries(cmd, dalaiFolder, autostart, runEntry, stopEntry)
+    parentPort.postMessage([45.0, 'Cloning Dalai ...'])
+    await runSync('mkdir C:\\Dalai')
+    await runSync(setPath + 'powershell.exe -command "cd C:\\Dalai ; git clone https://github.com/cocktailpeanut/dalai')
 
-parentPort.postMessage("Finished")
+    parentPort.postMessage([55.0, "Installing Dalai ..."])
+    await runSync(setPath + 'cd ' + dalaiFolder + ' && npm install')
 
-function installDeps(cmd) {
-    // install coco to install docker and npm
-    console.log("Installing Choco")
-    logOutput(cmd.runSync('powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\'))'))
+    parentPort.postMessage([60.0, "Installing Alpaca ..."])
+    console.log("Now installing alpaca ( fat, takes long time )")
+    await runSync(setPath + 'cd ' + dalaiFolder + ' && npx dalai ' + modelType + ' install ' + selectedModel)
 
-    // choco installed, now get docker and npm
-    const chocoPath = 'C:\\ProgramData\\chocolatey\\bin\\choco.exe'
-    logOutput(cmd.runSync('set PATH=%PATH%;C:\\ProgramData\\chocolately\\bin'));
+    parentPort.postMessage([90.0, "Setup entires ..."])
+    await setupEntries(dalaiFolder, autostart, runEntry, stopEntry)
 
-    console.log("Installing Npm")
-    logOutput(cmd.runSync(chocoPath + ' install nodejs -y'))
-
-    console.log("Installing Python")
-    logOutput(cmd.runSync(chocoPath + ' install python --version=3.8.0 -y'))
-
-    console.log("Installing Git")
-    logOutput(cmd.runSync(chocoPath + ' install git -y'))
-
-    console.log("Installing MS Visual C++ Runtime")
-    logOutput(cmd.runSync(chocoPath + ' install vcredist-all -y'))
-
-    console.log("Installing Cmake")
-    logOutput(cmd.runSync(chocoPath + ' install make -y'))
-
-    console.log("Installing VS")
-    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019community -y'))
-    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019buildtools -y'))
-    logOutput(cmd.runSync(chocoPath + ' install visualstudio2019-workload-vctools -y'))
+    parentPort.postMessage("finished")
 }
 
-function setupEntries(cmd, dalaiFolder, autostart, runEntry, stopEntry) {
+async function installDeps() {
+    // install coco to install docker and npm
+    parentPort.postMessage([0.0, 'Installing Chocolatey ...'])
+    console.log("Installing Choco")
+    await runSync('powershell.exe Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://community.chocolatey.org/install.ps1\'))')
+
+    // choco installed, now get npm and other dependencies
+    const chocoPath = 'C:\\ProgramData\\chocolatey\\bin\\choco.exe'
+    await runSync('set PATH=%PATH%;C:\\ProgramData\\chocolately\\bin')
+
+    parentPort.postMessage([5.0, 'Installing Npm ...'])
+    console.log("Installing Npm")
+    await runSync(chocoPath + ' install nodejs -y')
+
+    parentPort.postMessage([10.0, 'Installing Python ...'])
+    console.log("Installing Python")
+    await runSync(chocoPath + ' install python --version=3.8.0 -y')
+
+    parentPort.postMessage([15.0, 'Installing Git ...'])
+    console.log("Installing Git")
+    await runSync(chocoPath + ' install git -y')
+
+    parentPort.postMessage([20.0, 'Installing MS Visual C++ Runtime ...'])
+    console.log("Installing MS Visual C++ Runtime")
+    await runSync(chocoPath + ' install vcredist-all -y')
+
+    parentPort.postMessage([25.0, 'Installing Cmake ...'])
+    console.log("Installing Cmake")
+    await runSync(chocoPath + ' install make -y')
+
+    parentPort.postMessage([30.0, 'Installing MS Visual Studio ...'])
+    console.log("Installing VS")
+    await runSync(chocoPath + ' install visualstudio2019community -y')
+    await runSync(chocoPath + ' install visualstudio2019buildtools -y')
+    await runSync(chocoPath + ' install visualstudio2019-workload-vctools -y')
+}
+
+async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
     // create entries
     if (runEntry) {
         // start entry
@@ -72,7 +95,7 @@ function setupEntries(cmd, dalaiFolder, autostart, runEntry, stopEntry) {
 
     if (stopEntry) {
         // install kill port to stop the server
-        logOutput(cmd.runSync('npm install -g kill-port'))
+        await runSync('npm install -g kill-port')
 
         // stop entry
         const fs = require('fs');
@@ -83,14 +106,14 @@ function setupEntries(cmd, dalaiFolder, autostart, runEntry, stopEntry) {
     }
 }
 
-function logOutput(syncCmd) {
-    console.log(`
-    
-        Sync Err ${syncCmd.err}
-        
-        Sync stderr:  ${syncCmd.stderr}
-
-        Sync Data ${syncCmd.data}
-    
-    `);
+function runSync(command) {
+    return new Promise((resolve, reject) => {
+        exec(command, { maxBuffer: 1024 * 1024 * 1024 }, (error, stdout, stderr) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(stdout)
+        })
+    })
 }

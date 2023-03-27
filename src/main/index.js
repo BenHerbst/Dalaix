@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import install from './install'
+import { install, getProgress, getProgressText } from './install'
 
 function createWindow() {
   // Create the browser window.
@@ -19,8 +19,15 @@ function createWindow() {
     }
   })
 
-  ipcMain.handle('install', install)
+  ipcMain.handle('install', (event, autostart, runEntry, stopEntry, selectedModel, modelType) => {
+    install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow)
+  })
   ipcMain.handle('quit', () => { app.quit() })
+  ipcMain.handle('getInstallProgress', () => {
+    mainWindow.webContents.send('update')
+    
+    return { 'progress': getProgress(), 'progressText': getProgressText() }
+  })
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()

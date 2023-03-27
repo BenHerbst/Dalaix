@@ -15,24 +15,23 @@
           <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         </div>
         <div class="modal-body">
-          <div
-            class="progress"
-            role="progressbar"
-            aria-label="Animated striped example"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
+          <div class="progress" role="progressbar" aria-label="Animated striped example">
             <div
-              class="progress-bar progress-bar-striped progress-bar-animated"
-              style="width: 75%"
+              v-if="installProgress != null"
+              class="progress-bar"
+              :class="{
+                'progress-bar-striped': installed == false,
+                'progress-bar-animated': installed == false,
+                'bg-success': installed == true,
+              }"
+              :style="{ width: installProgress + '%' }"
             ></div>
           </div>
           <div class="d-flex justify-content-center">
-            <p class="p-0 m-0 pt-2">{{ installText }}</p>
+            <p class="p-0 m-0 pt-2" v-if="installText != null">{{ installText }}</p>
           </div>
           <div class="d-flex justify-content-center mt-3 mb-2" v-if="installed">
-            <button type="button" class="btn btn-primary px-5">Close</button>
+            <button type="button" class="btn btn-primary px-5" @click="close">Close</button>
           </div>
         </div>
       </div>
@@ -42,17 +41,35 @@
 
 <script>
 export default {
-    data() {
-        return {
-            installed: false,
-            installText: "Installing Dalai..."
-        }
-    },
-    methods: {
-        finishInstall() {
-            this.installed = true;
-            this.installText = "Successfully installed Dalai";
-        },
+  data() {
+    return {
+      installText: null,
+      installProgress: null,
+      installed: false
     }
+  },
+  mounted: function () {
+    window.api.onProgress(() => {
+      this.getInstallProgress()
+    })
+  },
+  methods: {
+    finishInstall() {
+      this.installed = true
+      this.installText = 'Successfully installed Dalai'
+      this.installProgress = 100
+    },
+    getInstallProgress: async function () {
+      const installProgress = await window.api.getInstallProgress()
+      this.installText = installProgress.progressText
+      this.installProgress = installProgress.progress
+      if (this.installProgress == 100) {
+        this.installed = true
+      }
+    },
+    close() {
+      window.api.closeApp()
+    }
+  }
 }
 </script>

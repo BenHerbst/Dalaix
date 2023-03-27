@@ -1,12 +1,26 @@
 import InstallWorker from './installWorker?nodeWorker'
 
-export default function install(event, autostart, runEntry, stopEntry, selectedModel, modelType) {
+var progress = 0.0
+var progressText = 'Not started yet ...'
+
+export function install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow) {
 
   // everything here with threads
-  const installWorker = new InstallWorker()
+  const installWorker = new InstallWorker({ workerData: { autostart, runEntry, stopEntry, selectedModel, modelType } })
 
-  installWorker.once("message", result => {
-    console.log(result)
+  installWorker.on("message", msg => {
+    if (msg !== "finished") {
+      // not finished yet
+      // 0 = percentage
+      // 1 = text
+      progress = msg[0]
+      progressText = msg[1]
+    } else {
+      // finished
+      progress = 100.0
+      progressText = "Successfully installed Dalai"
+    }
+    mainWindow.webContents.send("progressed")
   });
 
   installWorker.on("error", error => {
@@ -16,4 +30,12 @@ export default function install(event, autostart, runEntry, stopEntry, selectedM
   installWorker.on("exit", exitCode => {
     console.log(exitCode);
   })
+}
+
+export function getProgress() {
+  return progress
+}
+
+export function getProgressText() {
+  return progressText
 }
