@@ -82,6 +82,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the start batch !');
         }
+        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\start.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" -Name "Start Dalai"')
     }
 
     if (autostart) {
@@ -91,6 +92,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the autostart batch !');
         }
+        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\autostart.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\" -Name "Autostart Dalai"')
     }
 
     if (stopEntry) {
@@ -103,6 +105,7 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
         catch (e) {
             alert('Failed to save the stop batch !');
         }
+        await runSync('powershell.exe -command "New-Item -ItemType SymbolicLink -Path C:\\Dalai\\stop.bat -Target "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\" -Name "Stop Dalai"')
     }
 }
 
