@@ -10,20 +10,28 @@ const runEntry = data.runEntry
 const stopEntry = data.stopEntry
 const selectedModel = data.selectedModel
 const modelType = data.modelType
+var directory = data.installDirectory
+
+// add slash at end of directory if not present
+if (!directory.endsWith('\\')) {
+    directory = directory + '\\'
+}
 
 run()
 
 async function run() {
     await installDeps()
 
-    const dalaiFolder = 'C:\\Dalai\\dalai'
+    const dalaiFolder = directory + 'dalai'
     const setPath = 'set PATH=%PATH%;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd\\;C:\\Python38;C:\\Python38\\Scripts\\ && '
 
     parentPort.postMessage([45.0, 'Cloning Dalai ...'])
-    await runSync('mkdir C:\\Dalai')
-    await runSync(setPath + 'powershell.exe -command "cd C:\\Dalai ; git clone https://github.com/cocktailpeanut/dalai')
+    console.log("Cloning Dalai")
+    await runSync('mkdir ' + directory)
+    await runSync(setPath + 'powershell.exe -command "cd ' + directory + ' ; git clone https://github.com/cocktailpeanut/dalai"')
 
     parentPort.postMessage([55.0, "Installing Dalai ..."])
+    console.log("Installing Dalai")
     await runSync(setPath + 'cd ' + dalaiFolder + ' && npm install')
 
     parentPort.postMessage([60.0, "Installing Alpaca ..."])
@@ -31,8 +39,10 @@ async function run() {
     await runSync(setPath + 'cd ' + dalaiFolder + ' && npx dalai ' + modelType + ' install ' + selectedModel)
 
     parentPort.postMessage([90.0, "Setup entires ..."])
-    await setupEntries(dalaiFolder, autostart, runEntry, stopEntry)
+    console.log("Setting up entires")
+    await setupEntries(dalaiFolder)
 
+    console.log("Finished installing Dalai")
     parentPort.postMessage("finished")
 }
 
@@ -73,26 +83,26 @@ async function installDeps() {
     await runSync(chocoPath + ' install visualstudio2019-workload-vctools -y')
 }
 
-async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
+async function setupEntries(dalaiFolder) {
     // create entries
     if (runEntry) {
         // start entry
         const fs = require('fs');
-        try { fs.writeFileSync('C:\\Dalai\\start.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Starting Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx dalai serve', 'utf-8'); }
+        try { fs.writeFileSync(directory + 'start.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Starting Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx dalai serve', 'utf-8'); }
         catch (e) {
             alert('Failed to save the start batch !');
         }
-        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  C:\\Dalai\\start.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai.lnk"')
+        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  ' + directory + 'start.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai.lnk"')
     }
 
     if (autostart) {
         // start entry
         const fs = require('fs');
-        try { fs.writeFileSync('C:\\Dalai\\autostart.bat', 'cd ' + dalaiFolder + ' && npx dalai serve', 'utf-8'); }
+        try { fs.writeFileSync(directory + 'autostart.bat', 'cd ' + dalaiFolder + ' && npx dalai serve', 'utf-8'); }
         catch (e) {
             alert('Failed to save the autostart batch !');
         }
-        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\AutostartDalai" C:\\Dalai\\autostart.bat')
+        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\AutostartDalai" ' + directory + 'autostart.bat')
     }
 
     if (stopEntry) {
@@ -101,12 +111,12 @@ async function setupEntries(dalaiFolder, autostart, runEntry, stopEntry) {
 
         // stop entry
         const fs = require('fs');
-        try { fs.writeFileSync('C:\\Dalai\\stop.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Stopping Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx kill-port 3000', 'utf-8'); }
+        try { fs.writeFileSync(directory + 'stop.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Stopping Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx kill-port 3000', 'utf-8'); }
         catch (e) {
             alert('Failed to save the stop batch !');
         }
-        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai" C:\\Dalai\\stop.bat')
-        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  C:\\Dalai\\stop.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai.lnk"')
+        await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai" ' + directory + 'stop.bat')
+        await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut ' + directory + 'stop.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai.lnk"')
     }
 }
 

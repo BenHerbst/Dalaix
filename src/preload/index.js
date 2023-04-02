@@ -3,8 +3,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
-  install: function (autostart, runEntry, stopEntry, selectedModel, modelType) {
-    ipcRenderer.invoke('install', autostart, runEntry, stopEntry, selectedModel, modelType)
+  install: function (autostart, runEntry, stopEntry, selectedModel, modelType, installDirectory) {
+    ipcRenderer.invoke('install', autostart, runEntry, stopEntry, selectedModel, modelType, installDirectory)
   },
   closeApp: () => {
     // quit the app

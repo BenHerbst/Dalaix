@@ -3,10 +3,10 @@ import InstallWorker from './installWorker?nodeWorker'
 var progress = 0.0
 var progressText = 'Not started yet ...'
 
-export function install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow) {
+export function install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow, installDirectory) {
 
   // everything here with threads
-  const installWorker = new InstallWorker({ workerData: { autostart, runEntry, stopEntry, selectedModel, modelType } })
+  const installWorker = new InstallWorker({ workerData: { autostart, runEntry, stopEntry, selectedModel, modelType, installDirectory } })
 
   installWorker.on("message", msg => {
     if (msg !== "finished") {

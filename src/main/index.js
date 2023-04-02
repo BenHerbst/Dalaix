@@ -19,8 +19,8 @@ function createWindow() {
     }
   })
 
-  ipcMain.handle('install', (event, autostart, runEntry, stopEntry, selectedModel, modelType) => {
-    install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow)
+  ipcMain.handle('install', (event, autostart, runEntry, stopEntry, selectedModel, modelType, installDirectory) => {
+    install(autostart, runEntry, stopEntry, selectedModel, modelType, mainWindow, installDirectory)
   })
   ipcMain.handle('quit', () => { app.quit() })
   ipcMain.handle('getInstallProgress', () => {

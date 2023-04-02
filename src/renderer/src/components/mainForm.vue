@@ -8,8 +8,6 @@
         Start and stop Dalai via the Start menu entries
       </p>
       <h3>General</h3>
-      <label class="form-label" for="port">Select port:</label>
-      <input type="number" class="form-control" placeholder="Port" id="port" v-model="portNumber"/>
       <label class="form-label" for="directory">Select install directory:</label>
       <input type="text" class="form-control" placeholder="Install directory" id="directory" v-model="installDirectory"/>
       <h3 class="mt-3">Model</h3>
@@ -91,7 +89,6 @@ export default {
       runEntry: true,
       stopEntry: true,
       modelType: 'alpaca',
-      portNumber: 3000,
       installDirectory: 'C:\\Dalai\\'
     }
   },
@@ -103,7 +100,8 @@ export default {
         this.runEntry,
         this.stopEntry,
         this.selectedModel,
-        this.modelType
+        this.modelType,
+        this.installDirectory
       )
     },
     close() {
