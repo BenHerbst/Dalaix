@@ -1,13 +1,18 @@
 <template>
   <div class="container-fluid pt-5">
-    <div class="container shadow-lg rounded-3 p-5 border bg-body">
+    <div class="container shadow-lg rounded-3 p-5 border bg-body mb-5">
       <h2 class="fw-bold">Dalaix by Ben Herbst</h2>
       <p>
         Install Dalaix the simple and easy way. Just fill out this form and press install!
         <br />
         Start and stop Dalai via the Start menu entries
       </p>
-      <h3>Model</h3>
+      <h3>General</h3>
+      <label class="form-label" for="port">Select port:</label>
+      <input type="number" class="form-control" placeholder="Port" id="port" v-model="portNumber"/>
+      <label class="form-label" for="directory">Select install directory:</label>
+      <input type="text" class="form-control" placeholder="Install directory" id="directory" v-model="installDirectory"/>
+      <h3 class="mt-3">Model</h3>
       <p class="form-label">Select model:</p>
       <div class="form-check">
         <input
@@ -30,14 +35,14 @@
         />
         <label class="form-check-label" for="flexRadioAlpaca"> Alpaca </label>
       </div>
-      <select v-model="selectedModel" class="mb-3 form-select form-control">
+      <select v-model="selectedModel" class="form-select form-control">
         <option value="7B" selected>7B Model</option>
         <option>13B Model</option>
         <!-- llama exclusive -->
         <option value="30B" v-if="modelType == 'llama'">30B Model</option>
         <option value="65B" v-if="modelType == 'llama'">65B Model</option>
       </select>
-      <h3>Run</h3>
+      <h3 class="mt-3">Run</h3>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="startMenuRunCheck" v-model="runEntry" />
         <label class="form-check-label" for="startMenuRunCheck">Run entry in start menu?</label>
@@ -86,6 +91,8 @@ export default {
       runEntry: true,
       stopEntry: true,
       modelType: 'alpaca',
+      portNumber: 3000,
+      installDirectory: 'C:\\Dalai\\'
     }
   },
   methods: {
