@@ -15,7 +15,7 @@ win:
   executableName: Dalaix
   requestedExecutionLevel: highestAvailable
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ${name}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
@@ -37,7 +37,7 @@ linux:
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}
-npmRebuild: false
+npmRebuild: true
 publish:
   provider: generic
   url: https://www.benherbst.de/
