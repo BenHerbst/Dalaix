@@ -1,6 +1,6 @@
 {
   "name": "dalaix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple to use Dalai installer",
   "main": "./out/main/index.js",
   "author": "benherbst.de",

@@ -90,7 +90,7 @@ async function setupEntries(dalaiFolder) {
         const fs = require('fs');
         try { fs.writeFileSync(directory + 'start.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Starting Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx dalai serve', 'utf-8'); }
         catch (e) {
-            alert('Failed to save the start batch !');
+            console.log('Failed to save the start batch !');
         }
         await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut  ' + directory + 'start.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Start Dalai.lnk"')
     }
@@ -100,7 +100,7 @@ async function setupEntries(dalaiFolder) {
         const fs = require('fs');
         try { fs.writeFileSync(directory + 'autostart.bat', 'cd ' + dalaiFolder + ' && npx dalai serve', 'utf-8'); }
         catch (e) {
-            alert('Failed to save the autostart batch !');
+            console.log('Failed to save the autostart batch !');
         }
         await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\AutostartDalai" ' + directory + 'autostart.bat')
     }
@@ -113,7 +113,7 @@ async function setupEntries(dalaiFolder) {
         const fs = require('fs');
         try { fs.writeFileSync(directory + 'stop.bat', 'cd ' + dalaiFolder + ' && PowerShell -Command "Add-Type -AssemblyName PresentationFramework;[System.Windows.MessageBox]::Show(\'Stopping Dalai server ...\', \'Dalaix by Ben Herbst\')" && npx kill-port 3000', 'utf-8'); }
         catch (e) {
-            alert('Failed to save the stop batch !');
+            console.log('Failed to save the stop batch !');
         }
         await runSync('mklink "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai" ' + directory + 'stop.bat')
         await runSync('cd "C:\\Program Files\\Git\\mingw64\\bin" && create-shortcut ' + directory + 'stop.bat "%appdata%\\Microsoft\\Windows\\Start Menu\\Programs\\Stop Dalai.lnk"')
