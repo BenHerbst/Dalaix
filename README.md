@@ -43,7 +43,11 @@ So take a shower or get your coffee until Dalai is installed!
 
 IMPORTANT: If your install crashs or hangs up for any reason, follow the steps in #Troubleshoot!
 
-### 6. Successfully installed
+### 6. Optional: Support me ( PayPal )
+|[Donate](https://www.paypal.com/donate/?hosted_button_id=C5X9LBEM7XZ64)|
+|---|
+
+### 7. Successfully installed
 When you get the popup: "Successfully installed", click close.
 
 <img src="https://github.com/BenHerbst/Dalaix/blob/main/docs/Screenshots/installed.png" width=450>
