@@ -2,7 +2,7 @@ repo_name: BenHerbst/Dalaix
 report_id: 7e270a013500fc898594edc9909311e5
 version: 0.1
 repo_type: Public
-timestamp: '2023-12-18T21:52:14+00:00'
+timestamp: '2024-02-29T19:06:31+00:00'
 requested_by: BenHerbst
 provider: github
 branch: main
@@ -17,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/BenHerbst/Dalaix
   detection_source: Repo Metadata
 - name: Bootstrap
   description: Simple and flexible HTML, CSS, and JS for popular UI components and
@@ -70,6 +71,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/1171/jCR2zNJV.png
+  detection_source_url: https://github.com/BenHerbst/Dalaix/blob/main/package.json
   detection_source: package.json
   last_updated_by: Ben Herbst
   last_updated_on: 2023-03-24 23:20:55.000000000 Z
@@ -96,6 +98,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Code Review
   image_url: https://img.stackshare.io/service/3337/Q4L7Jncy.jpg
+  detection_source_url: https://github.com/BenHerbst/Dalaix/blob/main/package.json
   detection_source: package.json
   last_updated_by: Ben Herbst
   last_updated_on: 2023-03-24 23:20:55.000000000 Z
@@ -107,6 +110,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/BenHerbst/Dalaix
   detection_source: Repo Metadata
 - name: GitHub Actions
   description: Automate your workflow from idea to production
@@ -116,11 +120,12 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
+  detection_source_url: https://github.com/BenHerbst/Dalaix/blob/main/.github/workflows/main.yml
   detection_source: ".github/workflows/main.yml"
   last_updated_by: Ben Herbst
   last_updated_on: 2023-04-03 18:19:24.000000000 Z
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 2.8.7
   license: MIT
@@ -142,6 +147,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: JS Build Tools / JS Task Runners
   image_url: https://img.stackshare.io/service/21547/default_1aeac791cde11ff66cc0b20dcc6144eeb185c905.png
+  detection_source_url: https://github.com/BenHerbst/Dalaix/blob/main/package.json
   detection_source: package.json
   last_updated_by: Ben Herbst
   last_updated_on: 2023-03-24 23:20:55.000000000 Z
@@ -153,6 +159,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/BenHerbst/Dalaix/blob/main/package.json
   detection_source: package.json
   last_updated_by: Ben Herbst
   last_updated_on: 2023-03-24 23:20:55.000000000 Z
@@ -227,6 +234,14 @@ tools:
   detection_source: package.json
   last_updated_by: dependabot[bot]
   last_updated_on: 2023-06-06 14:06:15.000000000 Z
+  vulnerabilities:
+  - name: Vite dev server option `server.fs.deny` can be bypassed when hosted on case-insensitive
+      filesystem
+    cve_id: CVE-2024-23331
+    cve_url: https://github.com/advisories/GHSA-c24v-8rfc-w8vw
+    detected_date: Jan 20
+    severity: high
+    first_patched: 4.5.2
 - name: vue
   description: Vue
   package_url: https://www.npmjs.com/vue
